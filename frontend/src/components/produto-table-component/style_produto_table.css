@@ -1,0 +1,18 @@
+.MuiCollapse-root{
+    background-color: hsl(232, 54%, 50%);
+}
+
+.MuiCollapse-entered{
+    background-color: hsl(232, 54%, 30%);
+}
+.MuiTableCell-head{
+    background-color: rgb(216, 216, 216);
+}
+
+.MuiTableCell-body{
+    background-color: hsl(232, 54%, 41%)
+}
+
+.MuiTypography-gutterBottom{
+    color: white;
+}
