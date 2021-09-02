@@ -5,7 +5,7 @@ import CategoriaForm from './components/categoria-form-component';
 import ProdutoForm from './components/produto-form-component/produto-form';
 import Repository from './repository/produto-repository'
 import {ReactComponent as BoxIcon} from './assets/boxicon.svg';
-import SelectCategoria from './components/produto-form-component/produto-categoria-select';
+import ProdutoTable from './components/produto-table-component/produto-table';
 class App extends Component {
   categoriarepository;
   produtorepository;
@@ -19,8 +19,8 @@ class App extends Component {
         <section>
           <BoxIcon id="logo"/>
           <ProdutoForm create={this.produtorepository.create.bind(this.produtorepository)}/>
-          <SelectCategoria categoriarepository={this.categoriarepository}/>
           <CategoriaForm create={this.categoriarepository.create.bind(this.categoriarepository)}/>
+          <ProdutoTable/>
         </section>
     );
   }
