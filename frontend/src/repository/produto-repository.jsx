@@ -1,5 +1,3 @@
-import { recomposeColor } from "@material-ui/core";
-
 class ProdutoRepository{
     #list;
     #funclist;
@@ -10,9 +8,10 @@ class ProdutoRepository{
     }
 
     create(model){
-        let models =  [...this.#list, model] 
-        this.list = models
-    }
+        let models = [...this.#list, model]
+        this.#list = models;
+        this.notifyAll();
+    }   
 
     list(){
         return this.#list;

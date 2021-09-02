@@ -1,78 +1,113 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { withStyles } from "@material-ui/core/styles";
-import Collapse from "@material-ui/core/Collapse";
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
-import Paper from "@material-ui/core/Paper";
-import Button from "@material-ui/core/Button";
-import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
-class ProdutoTable extends React.Component {
-  state = { open: false };
-  lista = [{"id" : 1, "nome" : "caio", "descricao":"aquela", "categoria":{"id": 1, "nome" : "batato"}},{"id" : 2, "nome" : "caio", "descricao":"aquela", "categoria":{"id": 1, "nome" : "batata"}},{"id" : 3, "nome" : "caio", "descricao":"aquela", "categoria":{"id": 1, "nome" : "batato"}},]
+import React from 'react';
+import PropTypes from 'prop-types';
+import { makeStyles } from '@material-ui/core/styles';
+import Box from '@material-ui/core/Box';
+import Collapse from '@material-ui/core/Collapse';
+import IconButton from '@material-ui/core/IconButton';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Typography from '@material-ui/core/Typography';
+import Paper from '@material-ui/core/Paper';
+import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
+import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 
-  render() {
-    const { row } = this.props;
-    const { open } = this.state;
-    return(
-          <>
-          <Paper >
-      <Table >
-        <TableHead>
-          <TableRow>
-            <TableCell></TableCell>
-            <TableCell align="right">ID</TableCell>
-            <TableCell align="right">Nome</TableCell>
-            <TableCell align="right">Descricao</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-      {this.lista.map((l, k) => {
-        return (
-          <>
-          <TableRow>
-          <TableCell>
-          <Button
-          onClick={() => this.setState(({ open }) => ({ open: !open }))}
-          >
-          <ArrowForwardIosIcon fontSize="small"/>
-          </Button>
-          </TableCell>
-            <TableCell key={k} align="right">{l.id}</TableCell>
-            <TableCell key={k} align="right">{l.nome}</TableCell>
-            <TableCell key={k} align="right">{l.descricao}</TableCell>
-          </TableRow>
-          <Collapse in={open} component="tr" style={{ display: "block" }}>
-            <td>
-              <div>
-              <Table >
-        <TableHead>
-          <TableRow>
-            <TableCell></TableCell>
-            <TableCell align="right">ID</TableCell>
-            <TableCell align="right">Nome</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-            <TableCell key={k} align="right">{l.categoria.id}</TableCell>
-            <TableCell key={k} align="right">{l.categoria.nome}</TableCell>
-        </TableBody>
+const useRowStyles = makeStyles({
+  root: {
+    '& > *': {
+      borderBottom: 'unset',
+    },
+  },
+});
 
-        </Table>
-            </div>
-            </td>
+function data(){
+  lista.forEach(element => {
+    return element;
+  });
+
+  function Row(props) {
+    const { row } = props;
+    const [open, setOpen] = React.useState(false);
+    const classes = useRowStyles();
+  
+  
+  return (
+    <React.Fragment>
+      <TableRow className={classes.root}>
+        <TableCell>
+          <IconButton aria-label="expand row" size="small" onClick={() => setOpen(!open)}>
+            {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+          </IconButton>
+        </TableCell>
+        <TableCell component="th" scope="row">
+          {row.name}
+        </TableCell>
+        <TableCell align="right">{row.calories}</TableCell>
+        <TableCell align="right">{row.fat}</TableCell>
+        <TableCell align="right">{row.carbs}</TableCell>
+        <TableCell align="right">{row.protein}</TableCell>
+      </TableRow>
+      <TableRow>
+        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
+          <Collapse in={open} timeout="auto" unmountOnExit>
+            <Box margin={1}>
+              <Typography variant="h6" gutterBottom component="div">
+                Categoria
+              </Typography>
+              <Table size="small" aria-label="purchases">
+                <TableHead>
+                  <TableRow>
+                    <TableCell>Date</TableCell>
+                    <TableCell>Customer</TableCell>
+                    <TableCell align="right">Amount</TableCell>
+                    <TableCell align="right">Total price ($)</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {row.history.map((historyRow) => (
+                    <TableRow key={historyRow.date}>
+                      <TableCell component="th" scope="row">
+                        {historyRow.date}
+                      </TableCell>
+                      <TableCell>{historyRow.customerId}</TableCell>
+                      <TableCell align="right">{historyRow.amount}</TableCell>
+                      <TableCell align="right">
+                        {Math.round(historyRow.amount * row.price * 100) / 100}
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </Box>
           </Collapse>
-          </>
-        );
-          })}
-          </TableBody>
-        </Table>
-      </Paper>
-        </>
-    );
-  }
+        </TableCell>
+      </TableRow>
+    </React.Fragment>
+  );
+}
+  
+export default function ProdutoTable() {
+  return (
+    <TableContainer component={Paper}>
+      <Table aria-label="collapsible table">
+        <TableHead>
+          <TableRow>
+            <TableCell />
+            <TableCell>Id</TableCell>
+            <TableCell align="right">Nome</TableCell>
+            <TableCell align="right">Descrição</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {lista.map((e) => (
+            <Row key={e.nome} row={e} />
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
+  );
 }
 export default ProdutoTable;
