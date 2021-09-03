@@ -15,7 +15,6 @@ function CategoriaForm({create}){
                     model.nome = e.target.catnome.value;
                     model.descricao = e.target.catdescricao.value;
                 create(model);
-                console.log(model)
 
             }}>
                 <TextField 

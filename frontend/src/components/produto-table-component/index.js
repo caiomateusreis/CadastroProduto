@@ -1,3 +1,3 @@
-import CategoriaTable from './categoria-table';
+import Table from './categoria-table';
 
-export default CategoriaTable;
+export default Table;

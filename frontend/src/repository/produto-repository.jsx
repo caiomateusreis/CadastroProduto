@@ -8,8 +8,7 @@ class ProdutoRepository{
     }
 
     create(model){
-        let models = [...this.#list, model]
-        this.#list = models;
+        this.#list = [...this.#list, model];
         this.notifyAll();
     }   
 
@@ -27,7 +26,7 @@ class ProdutoRepository{
     }
 
     notifyAll(){
-        this.#funclist.forEach(func =>{
+        this.#funclist.forEach(func =>{           
             func(this.#list)
         })
     }

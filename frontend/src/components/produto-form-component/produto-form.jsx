@@ -7,9 +7,9 @@ import Produto from '../../models/produto';
 
 function ProdutoForm({produtorepository,categoriarepository}){
     let [categorialista, setcategorialista] = useState(categoriarepository.list());
+    categoriarepository.sub(setcategorialista);
     let [lista, setlista] = useState(produtorepository.list());
-    produtorepository.sub(setlista)
-    categoriarepository.sub(setcategorialista)
+    produtorepository.sub(setlista);
 
     return(
     <>
@@ -23,7 +23,6 @@ function ProdutoForm({produtorepository,categoriarepository}){
             model.descricao = e.target.proddescricao.value;
             model.categoria = categorialista.find(l=> l.nome === document.getElementById("select1").value)
             produtorepository.create(model)
-        console.log(model)
     }}>
         <TextField 
                 id="prodid" 
