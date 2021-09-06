@@ -15,7 +15,7 @@ namespace Data.Context
 
             protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
             {
-                optionsBuilder.UseNpgsql("Server=localhost;Database=nova;User ID=teste;Password=teste123;Port=5432");
+                optionsBuilder.UseNpgsql("Server=192.168.0.157;User ID=teste;Password=teste123;Database=teste3");
             }
     }
 }

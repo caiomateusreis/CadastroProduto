@@ -8,17 +8,13 @@ using System.Threading.Tasks;
 
 namespace Data.Context
 {
-    class MariaDBContext
+    class DataBaseContext : DbContext
     {
-        class DataBaseContext : DbContext
-        {
-            public DbSet<Produto> Produtos { get; set; }
-            public DbSet<Categoria> Categorias { get; set; }
+            public DbSet<Estoque> Categorias { get; set; }
 
             protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
             {
-                //optionsBuilder.UseMySql();
+                optionsBuilder.UseMySql("user id = root; server = 192.168.0.157; persistsecurityinfo = True; port = 3309; database = testemyql; Pwd = teste123", new MySqlServerVersion(new Version()));
             }
-        }
     }
 }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MariaDBAPI.Controllers
 {
-    public class CategoriaController : BaseController<Categoria, CategoriaRepository>
+    public class CategoriaController : BaseController<Estoque, EstoqueRepository>
     {
     }
 }
